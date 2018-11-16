@@ -1,0 +1,93 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>Universities</title>
+<script src="jquery-3.3.1.min.js"></script>
+<link href="table.css" rel="stylesheet" type="text/css">  
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
+<link href="styleSheet.css" rel="stylesheet" type="text/css">
+
+</head>
+<div class="topnav" id="myTopnav">
+
+  <a href="index.html" class="active">Home</a>
+  <a href="universities.html">Universities</a> 
+  <div class="dropdown">
+    <button class="dropbtn">Statistics
+      <i class="fa fa-caret-down"></i>
+    </button>
+    <div class="dropdown-content">
+      <a href="overallStats">Overall</a>
+      <a href="agricultureStats">Agriculture</a>
+	  <a href="educationStats">Education</a>
+	  <a href="engineeringStats">Engineering, Manufacturing & Construction</a>
+	  <a href="healthStats">Health & Welfare</a>
+	  <a href="humanitiesStats">Humanities & Arts</a>
+	  <a href="scienceStats">Science</a>
+	  <a href="servicesStats">Services</a>
+	  <a href="socialStats">Social Sciences, Business & Law</a>
+    </div>
+  </div> 
+  <a href="opportunities.html">Opportunities</a>
+  <a href="javascript:void(0);" class="icon" onclick="navbar()">&#9776;</a>
+</div>
+<body>
+<div class="row">
+	<div class = center>
+		<div class = "col-12" style="overflow-x:auto;">
+			<table id = "university_Table">
+			<thead>
+			<tr>
+			<th>University</th>
+			<th>Link</th>
+			</tr>
+			</thead>
+			<tbody>
+			</tbody>
+			</table>
+		</div>
+	</div>
+</div>
+</body>
+
+</html>
+
+<script>
+$(document).ready(function(){
+	$.getJSON("universities.json", function(data){
+	var uni_data = '';
+	 
+	$.each(data, function(key, value){
+	
+	uni_data += '<tr onclick="changeUrl(' + '\'' + value.web_pages[0] +  '\'' + ')">';
+	uni_data += '<td>'+value.name+'</td>';
+	uni_data += '<td><a href='+ value.web_pages[0] + '>' +value.web_pages[0]+'</a></td>';
+	uni_data += '</tr>';
+	});
+	$('#university_Table').append(uni_data);
+	$('#university_Table').DataTable();
+	});
+	
+	});
+	
+	function changeUrl(url)
+	{
+	console.log(url);
+	location.replace(url);
+	}
+	
+
+	/* NAVBAR */
+	function navbar() {
+    var i = document.getElementById("myTopnav");
+    if (i.className === "topnav") {
+        i.className += " responsive";
+    } else {
+        i.className = "topnav";
+    }
+}
+
+
+
+</script>
+

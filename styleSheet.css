@@ -84,6 +84,9 @@
     float: right;
     display: block;
   }
+  
+  .col-4 {width:100%;}
+  .jobDiv {width:inherit;}
 }
 
 @media screen and (max-width: 600px) {
@@ -120,6 +123,7 @@ h1 {
 /* For mobile phones: */
 [class*="col-"] {
     width: 100%;
+	
 }
 
 
@@ -170,7 +174,7 @@ body {
     .col-1 {width: 8.33%;}
     .col-2 {width: 16.66%;}
     .col-3 {width: 25%;}
-    .col-4 {width: 33.33%;}
+    .col-4 {width: 32%;}
     .col-5 {width: 41.66%;}
     .col-6 {width: 50%;}
     .col-7 {width: 58.33%;}
@@ -179,6 +183,10 @@ body {
     .col-10 {width: 83.33%;}
     .col-11 {width: 91.66%;}
     .col-12 {width: 100%;}
+}
+
+@media (max-width: 600px) {
+	.col-4 {width:100%;}
 }
 
 table, th, td {
@@ -197,8 +205,10 @@ table#university_Table {
 	text-decoration: underline;
 	font-weight: bold;
 	
+	
+	
 }
-tr:hover {background-color: #98c1d9;} !important
+
 
 
 .center {
@@ -286,8 +296,9 @@ form.searchForm::after {
 .jobDiv {
 	border: 2px solid #e0fbfc;
 	margin: 2px;
-	width: calc(33.33% - 4px);
+	
 	text-align: center;
+	max-height: 193.6px;
 }
 
 .jobDiv a {
@@ -304,4 +315,11 @@ form.searchForm::after {
     background-color: #f18970;
 }
 
-
+.row {
+	width: 90%;
+	max-width: 1000px;
+	margin: 4em auto;
+	padding: 1em;
+	display: block;
+	overflow:auto;
+}

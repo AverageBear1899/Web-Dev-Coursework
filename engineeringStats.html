@@ -1,0 +1,131 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Engineering Stats</title>
+<script src="jquery-3.3.1.min.js"></script>
+<script src="Chart.bundle.js"></script>
+<link href="./styleSheet.css" rel="stylesheet" type="text/css">
+<link rel="shortcut icon" href="./images/favicon.ico" type="image/x-icon">
+</head>
+<div class="topnav" id="myTopnav">
+
+  <a href="index.html" class="active">Home</a>
+  <a href="universities.html">Universities</a> 
+  <div class="dropdown">
+    <button class="dropbtn">Statistics
+      <i class="fa fa-caret-down"></i>
+    </button>
+    <div class="dropdown-content">
+      <a href="overallStats.html">Overall</a>
+      <a href="agricultureStats.html">Agriculture</a>
+	  <a href="educationStats.html">Education</a>
+	  <a href="engineeringStats.html">Engineering, Manufacturing & Construction</a>
+	  <a href="healthStats.html">Health & Welfare</a>
+	  <a href="humanitiesStats.html">Humanities & Arts</a>
+	  <a href="scienceStats.html">Science</a>
+	  <a href="servicesStats.html">Services</a>
+	  <a href="socialStats.html">Social Sciences, Business & Law</a>
+    </div>
+  </div> 
+  <a href="opportunities.html">Opportunities</a>
+  <a href="javascript:void(0);" class="icon" onclick="navbar()">&#9776;</a>
+</div>
+
+<body>
+<div class = "row">
+<div class = "col-6">
+<canvas id="myChart" width="400" height="400"></canvas>
+</div>
+<div class = "col-6" style="color:white">
+<!--(StudyInfo, 2018)-->
+<p>Percentage of students in tertiary education enrolled in Engineering, Manufacturing and Construction programmes, both
+sexes (%) </p>
+<p>Technology appears in everyday life in increasingly diverse forms – it facilitates, serves and entertains. With an increasingly technical world, the work of engineering graduates has also become more and more diverse.
+
+The field offers interesting job opportunities for both men and women. It suits people who like creative solutions. Technology solves issues to facilitate human life, which makes it highly valuable work.
+
+Engineering graduates may work in production, design, development, expert and managerial assignments. Their competencies are also required when selling and marketing machinery, production systems or construction projects. Neither should we overlook engineering graduates working as trainers or in purchasing or business administration. Diverse competencies are an advantage in this field.</p>
+</div>
+</div>
+
+</body>
+</html>
+<script>
+var dates = [];
+var values = [];
+$.ajax({
+	url: "http://api.worldbank.org/v2/countries/GBR/indicators/UIS.FOSEP.56.F500?date=2009:2015&format=json",
+	type: "get",
+	dataType: "json",
+	success: function(data){
+	data[1].forEach(function(stats){
+		dates.push(stats.date);
+		values.push(stats.value)
+	});
+		dates.reverse();
+		values.reverse();
+		console.log(dates, values);
+		}
+	});
+
+
+/*NAVBAR*/
+function navbar() {
+    var i = document.getElementById("myTopnav");
+    if (i.className === "topnav") {
+        i.className += " responsive";
+    } else {
+        i.className = "topnav";
+    }
+}
+
+/*CHART.JS (Chartjs.org, 2018)*/
+
+var ctx = document.getElementById("myChart").getContext('2d');
+Chart.defaults.global.defaultFontColor = 'white';
+var myChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels: dates,
+        datasets: [{
+            
+            data: values,
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)'
+            ],
+            borderColor: [
+                'rgba(255,99,132,1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+	legend: { display: false,
+	},
+	
+        scales: {
+				
+            yAxes: [{
+                ticks: {
+                    beginAtZero:false,
+					display:false,
+					
+                }
+            }]
+        }
+    }
+});
+
+setTimeout(function() { myChart.update(); }, 1000);
+</script>
